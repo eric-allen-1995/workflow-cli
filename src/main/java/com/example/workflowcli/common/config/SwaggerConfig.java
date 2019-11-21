@@ -1,5 +1,6 @@
 package com.example.workflowcli.common.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
@@ -30,8 +31,11 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))                         //这里采用包含注解的方式来确定要显示的接口
-                .apis(RequestHandlerSelectors.basePackage("cn.stylefeng.guns.modular.system.controller"))     //这里采用包扫描的方式来确定要显示的接口
+                //以下扫描方式选择一种即可
+                //采用包含注解的方式来确定要显示的接口
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                //采用包扫描的方式来确定要显示的接口
+                //.apis(RequestHandlerSelectors.basePackage("cn.stylefeng.guns.modular.system.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -40,13 +44,18 @@ public class SwaggerConfig {
         MavenXpp3Reader mavenXpp3Reader = new MavenXpp3Reader();
         Model model = mavenXpp3Reader.read(new FileReader("pom.xml"));
         return new ApiInfoBuilder()
-                .title("MMF API") // 页面标题
-                .description("Multi-ModulesFrame API文档") // 描述
-//                .termsOfServiceUrl("https://baidu.com")
-                .contact(new Contact("Eden Carolus", "https://gogs.analyticservice.net/shawsail.xiao/Multi-Modules-Frame", "ShawSail.Xaio@analyticservice.net")) // 创建人
-                .version("1.0") // 版本号
+                // 页面标题
+                .title("Workflow-Cli")
+                // 描述
+                .description("Flowable API Doc For Workflow-Cli")
+                // 服务条款网址
+                //.termsOfServiceUrl("https://baidu.com")
+                // 创建人
+                .contact(new Contact("Eric.Allen",
+                        "https://github.com/eric-allen-1995/workflow-cli",
+                        "Eric.Allen@Tom.com"))
+                // 版本号
                 .version(model.getVersion())
                 .build();
     }
-
 }
