@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ResultVo {
-    private int code;
-    private String msg;
+    private int code; //状态码
+    private String msg; //返回消息
     private Object data;// 返回数据
 
     public ResultVo(CodeEnums code) {
@@ -15,16 +15,9 @@ public class ResultVo {
         this.msg = code.message;
     }
 
-    /**
-     * 自定义返回体
-     * @param code 枚举
-     * @param data 数据
-     * @return
-     */
-    public ResultVo CUSTOM(CodeEnums code,Object data) {
-        ResultVo resultVo =  new ResultVo(code);
-        resultVo.setData(data);
-        return resultVo;
+    public ResultVo(CodeEnums code, Object data) {
+        this.code = code.code;
+        this.msg = code.message;
+        this.data = data;
     }
-
 }

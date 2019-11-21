@@ -8,6 +8,7 @@ public enum CodeEnums {
     /* Permission */
     UNAUTHENTICATED( 2001, "您还未登录"),
     UNAUTHORISE( 2002, "权限不足"),
+    UNDEVELOPED(2003,"尚未开发完成"),
 
     /* Service Custom */
     START_SUCCESS(3001,"启动成功"),
