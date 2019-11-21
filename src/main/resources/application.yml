@@ -1,1 +1,35 @@
+server:
+  port: 8888
+  max-http-header-size: 4096
+  tomcat:
+    remote-ip-header: x-forward-for
+    uri-encoding: UTF-8
+    max-threads: 1000
 
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/flowable?serverTimezone=UTC&nullCatalogMeansCurrent=true
+    username: root
+    password: 1009
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filter: stat
+      #初始化大小
+      initial-size: 1
+      #最小等待连接数量
+      min-idle: 1
+      #最大连接数
+      max-active: 20
+      #超时设置
+      max-wait: 86400
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/static/flowable-modeler
+
+mybatis-plus:
+  mapper-locations: classpath:com/example/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
