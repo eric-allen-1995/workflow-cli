@@ -41,7 +41,7 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 flowable:
   async-executor-activate: false # 关闭定时任务JOB
-  database-schema-update: true # 建表策略
+  database-schema-update: false # 建表策略,第一次运行是改为true,之后改为false
   check-process-definitions: true # 启用自动部署流程定义
   db-history-used: true # 启用db历史表
   history-level: audit # 要使用的历史级别。
