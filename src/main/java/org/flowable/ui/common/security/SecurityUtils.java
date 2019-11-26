@@ -14,8 +14,6 @@ package org.flowable.ui.common.security;
 
 import org.flowable.idm.api.User;
 import org.flowable.ui.common.model.RemoteUser;
-import org.flowable.ui.common.security.DefaultPrivileges;
-import org.flowable.ui.common.security.FlowableAppUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,22 +49,14 @@ public class SecurityUtils {
         if (assumeUser != null) {
             return assumeUser;
         }
-        /*User user = null;
-        FlowableAppUser appUser = getCurrentFlowableAppUser();
-        if (appUser != null) {
-            user = appUser.getUserObject();
-        }*/
+
         RemoteUser user = new RemoteUser();
-        /*FlowableAppUser appUser = getCurrentFlowableAppUser();
-        if (appUser != null) {
-            user = appUser.getUserObject();
-        }*/
-        user.setId("001");
-        user.setDisplayName("Eric.Allen");
-        user.setFirstName("Eric");
-        user.setLastName("Allen");
-        user.setEmail("Eric.Allen@tom.com");
-        user.setPassword("1009");
+        user.setId("admin");
+        user.setDisplayName("Administrator");
+        user.setFirstName("Administrator");
+        user.setLastName("Administrator");
+        user.setEmail("admin@flowable.com");
+        user.setPassword("123456");
         List<String> pris = new ArrayList<>();
         pris.add(DefaultPrivileges.ACCESS_MODELER);
         pris.add(DefaultPrivileges.ACCESS_IDM);
