@@ -1,52 +1,44 @@
 server:
-  port: 8888
-  max-http-header-size: 4096
-  tomcat:
-    remote-ip-header: x-forward-for
-    uri-encoding: UTF-8
-    max-threads: 1000
-
+  port: 8080
 spring:
-
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/workflow?serverTimezone=UTC&nullCatalogMeansCurrent=true
+    url: jdbc:mysql://localhost:3306/sqlexam?serverTimezone=UTC
     username: root
     password: 1009
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       filter: stat
-      #³õÊ¼»¯´óĞ¡
-      initial-size: 1
-      #×îĞ¡µÈ´ıÁ¬½ÓÊıÁ¿
-      min-idle: 1
-      #×î´óÁ¬½ÓÊı
-      max-active: 20
-      #³¬Ê±ÉèÖÃ
-      max-wait: 86400
+      initial-size: 1 # åˆå§‹åŒ–å¤§å°
+      min-idle: 1 # æœ€å°ç­‰å¾…è¿æ¥æ•°é‡
+      max-active: 20 # æœ€å¤§è¿æ¥æ•°
+      max-wait: 86400 # è¶…æ—¶è®¾ç½®
+      min-evictable-idle-time-millis: 30000 # æœ€å°ç©ºé—²æ—¶é—´
+      max-evictable-idle-time-millis: 60000 # æœ€å¤§ç©ºé—²æ—¶é—´
   mvc:
     static-path-pattern: /**
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/static/flowable-modeler
-  #  Ç¿ÖÆÊ¹ÓÃGson
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/
   http:
     converters:
-      preferred-json-mapper: gson
-
+      preferred-json-mapper: gson # å¼ºåˆ¶ä½¿ç”¨Gson
 
 mybatis-plus:
-  mapper-locations: classpath:/com/example/mapper/*.xml
   configuration:
-    map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true # é©¼å³°å‘½å
+  mapper-locations: classpath:com/example/mapper/*.xml/
+  type-aliases-package: com.example.workflowcli.*.domain # å®ä½“æ‰«æ
+  global-config:
+    db-config:
+      table-underline: true
 flowable:
-  async-executor-activate: false # ¹Ø±Õ¶¨Ê±ÈÎÎñJOB
-  database-schema-update: false # ½¨±í²ßÂÔ,µÚÒ»´ÎÔËĞĞÊÇ¸ÄÎªtrue,Ö®ºó¸ÄÎªfalse
-  check-process-definitions: true # ÆôÓÃ×Ô¶¯²¿ÊğÁ÷³Ì¶¨Òå
-  db-history-used: true # ÆôÓÃdbÀúÊ·±í
-  history-level: audit # ÒªÊ¹ÓÃµÄÀúÊ·¼¶±ğ¡£
-  deployment-name: SpringBootAutoDeployment # ×Ô¶¯²¿ÊğµÄÃû³Æ
-  process-definition-location-prefix: classpath*:/processes/ # ×Ô¶¯²¿ÊğÊ±²éÕÒÁ÷³ÌµÄÄ¿Â¼
-  label-font-name: ËÎÌå
-  annotation-font-name: ËÎÌå
-  activity-font-name: ËÎÌå
+  db-history-used: true
+  history-level: audit
+  database-schema-update: true # è¡¨æ›´æ–°
+  check-process-definitions: true # æµç¨‹å®šä¹‰
+  async-executor-activate: false # å…³é—­å®šæ—¶ä»»åŠ¡JOB
+  deployment-name: SpringBootAutoDeployment # è‡ªåŠ¨éƒ¨ç½²çš„åç§°
+  process-definition-location-prefix: classpath*:/processes/ # è‡ªåŠ¨éƒ¨ç½²æ—¶æŸ¥æ‰¾æµç¨‹çš„ç›®å½•
+  #  label-font-name: å®‹ä½“
+  #  annotation-font-name: å®‹ä½“
+  #  activity-font-name: å®‹ä½“
