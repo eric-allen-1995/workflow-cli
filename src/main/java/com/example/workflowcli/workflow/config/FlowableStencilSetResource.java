@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,13 +31,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/app")
 public class FlowableStencilSetResource {
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(FlowableStencilSetResource.class);
 
     @Autowired
     protected ObjectMapper objectMapper;
 
-    @GetMapping(value = "/rest/stencil-sets/editor", produces = "application/json")
+    @RequestMapping(value = "/rest/stencil-sets/editor", method = RequestMethod.GET, produces = "application/json")
     public JsonNode getStencilSetForEditor() {
         try {
             JsonNode stencilNode = objectMapper.readTree(this.getClass().getClassLoader().getResourceAsStream("stencilset/stencilset_bpmn.json"));
@@ -47,7 +47,7 @@ public class FlowableStencilSetResource {
         }
     }
 
-    @GetMapping(value = "/rest/stencil-sets/cmmneditor", produces = "application/json")
+    @RequestMapping(value = "/rest/stencil-sets/cmmneditor", method = RequestMethod.GET, produces = "application/json")
     public JsonNode getCmmnStencilSetForEditor() {
         try {
             JsonNode stencilNode = objectMapper.readTree(this.getClass().getClassLoader().getResourceAsStream("stencilset/stencilset_cmmn.json"));
