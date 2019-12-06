@@ -9,36 +9,52 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       filter: stat
-      initial-size: 1 # 初始化大小
-      min-idle: 1 # 最小等待连接数量
-      max-active: 20 # 最大连接数
-      max-wait: 86400 # 超时设置
-      min-evictable-idle-time-millis: 30000 # 最小空闲时间
-      max-evictable-idle-time-millis: 60000 # 最大空闲时间
+      # 初始化大小
+      initial-size: 1
+      # 最小等待连接数量
+      min-idle: 1
+      # 最大连接数
+      max-active: 20
+      # 超时设置
+      max-wait: 86400
+      # 空闲时间
+      min-evictable-idle-time-millis: 30000
+#      max-evictable-idle-time-millis: 60000
   mvc:
     static-path-pattern: /**
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/static/stencilset
   http:
     converters:
-      preferred-json-mapper: gson # 强制使用Gson
+      # 强制使用Gson
+      preferred-json-mapper: gson
 
 mybatis-plus:
   configuration:
-    map-underscore-to-camel-case: true # 驼峰命名
+    # 驼峰命名
+    map-underscore-to-camel-case: true
   mapper-locations: classpath:com/example/mapper/*.xml/
-  type-aliases-package: com.example.workflowcli.*.domain # 实体扫描
+  # 实体扫描
+  type-aliases-package: com.example.workflowcli.*.domain
   global-config:
     db-config:
       table-underline: true
 flowable:
-  db-history-used: true
+  # 历史级别
   history-level: audit
-  database-schema-update: true # 表更新
-  check-process-definitions: true # 流程定义
-  async-executor-activate: false # 关闭定时任务JOB
-  deployment-name: SpringBootAutoDeployment # 自动部署的名称
-  process-definition-location-prefix: classpath*:/processes/ # 自动部署时查找流程的目录
-  #  label-font-name: 宋体
-  #  annotation-font-name: 宋体
-  #  activity-font-name: 宋体
+  # 启用历史表
+  db-history-used: true
+  # 表更新策略: 开发环境改为true;生产环境改为false
+  database-schema-update: true
+  # 关闭定时任务JOB
+  async-executor-activate: false
+  # 流程定义
+  check-process-definitions: true
+  # 自动部署的名称
+  deployment-name: SpringBootAutoDeployment
+  # 自动部署时查找流程的目录
+  process-definition-location-prefix: classpath*:/processes/
+  # 解决中文乱码
+  label-font-name: 宋体
+  annotation-font-name: 宋体
+  activity-font-name: 宋体
